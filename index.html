@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>EBMAKER | Drone Video for Real Estate</title>
-<meta name="description" content="EBMAKER, drone pilot producing and editing aerial films for luxury real estate, hospitality and fine dining.">
+<meta name="description" content="EBMAKER, drone pilot based in Chambéry, France. Cinematic aerial video for real estate, hospitality and fine dining.">
 <meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://ebmaker.fr/">
 <meta property="og:title" content="EBMAKER | Drone Video for Real Estate">
-<meta property="og:description" content="Aerial films for luxury real estate, hospitality and fine dining.">
+<meta property="og:description" content="Cinematic aerial video for real estate, hospitality and fine dining.">
 <meta property="og:image" content="img/td_2_pool.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='700' font-size='30' fill='%23fff' text-anchor='middle'%3EEB%3C/text%3E%3C/svg%3E">
 <style>
@@ -56,7 +57,7 @@ button{font:inherit;color:inherit}
 html{scroll-snap-type:y proximity}
 .snap{scroll-snap-align:start;position:relative}
 .bgvideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.78) 100%)}
+.shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.05) 35%,rgba(0,0,0,.6) 78%,#000 100%)}
 .cover-inner{position:absolute;z-index:2;inset:auto 0 clamp(48px,10vh,110px) 0;text-align:center;padding:0 var(--pad)}
 .wordmark{font-family:var(--display);font-weight:700;font-size:clamp(44px,9vw,120px);letter-spacing:.2em;margin:0;line-height:1;padding-left:.2em;text-shadow:0 4px 40px rgba(0,0,0,.5)}
 .cover-inner .sub{margin:18px 0 4px;font-weight:700;font-size:clamp(14px,1.6vw,20px);letter-spacing:.06em}
@@ -67,6 +68,37 @@ html{scroll-snap-type:y proximity}
 @media (hover:hover){.scrollcue:hover{background:#fff;border-color:#fff}.scrollcue:hover::after{border-color:#000}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
+
+
+
+/* animated search bar */
+.search{position:relative;animation:breathe 3.2s ease-in-out infinite}
+.search .ty{position:relative;display:inline-block}
+.search .ty .g{visibility:hidden}
+.search .ty .l{position:absolute;left:0;top:0;right:0}
+.search .ty .l::after{content:"";display:inline-block;width:2px;height:1.05em;margin-left:3px;vertical-align:-.15em;background:#fff;animation:caret 1s steps(1) infinite}
+.search .go{flex:none;margin-left:2px;opacity:0;transform:translateX(-8px);transition:opacity .5s .2s,transform .5s .2s}
+.search.done .go{opacity:1;transform:none}
+.search.done .go{animation:nudge 1.8s ease-in-out 1s infinite}
+@keyframes caret{50%{opacity:0}}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.0)}50%{box-shadow:0 0 0 8px rgba(255,255,255,.07),0 0 40px rgba(255,255,255,.08)}}
+@media (prefers-reduced-motion:reduce){.search{animation:none}.search .ty .l::after{animation:none;display:none}.search .go{opacity:1;transform:none;animation:none}}
+/* ---------- kinetic typography ---------- */
+.kin{position:relative;min-height:78vh;min-height:78svh;display:flex;flex-direction:column;justify-content:center;gap:clamp(6px,1.6vw,22px);overflow:hidden;background:#000;padding:clamp(48px,9vh,110px) 0}
+.kin .row{display:block;white-space:nowrap;font-family:var(--display);font-weight:700;font-size:clamp(38px,10.4vw,170px);line-height:1;letter-spacing:.04em;padding-left:var(--pad);will-change:transform;transform:translate3d(0,0,0)}
+.kin .row span{display:inline-block;padding-right:.5em}
+.kin .row.o{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.9)}
+.kin .row.d{color:rgba(255,255,255,.14)}
+ @media (max-width:700px){.kin{min-height:0;padding:64px 0 56px;gap:10px}.kin .row{font-size:10.8vw}}
+.kin .cap{margin:clamp(20px,4vh,44px) auto 0;padding:0 var(--pad);text-align:center;max-width:720px;color:var(--muted);font-size:clamp(14px,1.3vw,17px);font-style:italic;opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+.kin.in .cap{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.kin .cap{opacity:1;transform:none;transition:none}}
+/* smooth entrance between cover and realms */
+.js-rv .realms h2,.js-rv .realms .card{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js-rv .realms .card:nth-child(2){transition-delay:.12s}.js-rv .realms .card:nth-child(3){transition-delay:.24s}
+.js-rv .realms.in h2,.js-rv .realms.in .card{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js-rv .realms h2,.js-rv .realms .card{opacity:1;transform:none;transition:none}}
 /* ---------- section pages ---------- */
 .page{padding:96px var(--pad) 64px;max-width:1480px;margin:0 auto}
 .realms{min-height:100vh;min-height:100svh;display:flex;align-items:center}
@@ -135,7 +167,7 @@ html{scroll-snap-type:y proximity}
 
 /* ---------- contact ---------- */
 .contact{min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:100px var(--pad) 110px}
-.search{display:inline-flex;align-items:center;gap:14px;max-width:100%;padding:16px 28px;border:1px solid #fff;border-radius:999px;font-weight:700;font-size:clamp(15px,2vw,24px);background:rgba(255,255,255,.04);transition:box-shadow .4s,background .4s}
+.search{text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:14px;max-width:100%;padding:16px 28px;border:1px solid #fff;border-radius:999px;font-weight:700;font-size:clamp(15px,2vw,24px);background:rgba(255,255,255,.04);transition:box-shadow .4s,background .4s}
 .search svg{flex:none;width:22px;height:22px}
 @media (hover:hover){.search:hover{background:rgba(255,255,255,.09);box-shadow:0 0 0 6px rgba(255,255,255,.06)}}
 .contact p{color:var(--muted);margin:26px auto 28px;max-width:34ch;font-size:clamp(15px,1.6vw,19px)}
@@ -204,7 +236,15 @@ noscript{display:block;padding:30px;text-align:center}
     <p class="sub">Producing &amp; editing</p>
     <p class="sub2">Drone pilot</p>
   </div>
-  <button class="scrollcue" type="button" data-go="sec-realms" aria-label="Scroll down"></button>
+  <button class="scrollcue" type="button" data-go="sec-kinetic" aria-label="Scroll down"></button>
+</section>
+
+<!-- KINETIC -->
+<section class="kin" id="sec-kinetic" aria-label="Your project in immersion">
+  <div class="row" data-dir="-1"><span>YOUR PROJECT</span><span>YOUR PROJECT</span><span>YOUR PROJECT</span><span>YOUR PROJECT</span><span>YOUR PROJECT</span></div>
+  <div class="row o" data-dir="1"><span>IN IMMERSION</span><span>IN IMMERSION</span><span>IN IMMERSION</span><span>IN IMMERSION</span><span>IN IMMERSION</span></div>
+  <div class="row d" data-dir="-1.4"><span>REAL ESTATE · HOSPITALITY · FINE DINING</span><span>REAL ESTATE · HOSPITALITY · FINE DINING</span><span>REAL ESTATE · HOSPITALITY · FINE DINING</span></div>
+  <p class="cap">Cinematic aerial films that put your property, hotel or restaurant at the centre of the frame.</p>
 </section>
 
 <!-- REALMS -->
@@ -245,12 +285,12 @@ noscript{display:block;padding:30px;text-align:center}
 <section class="snap" id="sec-contact" aria-label="Contact">
   <div class="contact">
     <div>
-      <div class="search" role="heading" aria-level="1">
+      <a class="search" href="https://wa.me/33769920629?text=Hello%20Jaouad%2C%20I%20discovered%20EBMAKER%20and%20I%E2%80%99d%20like%20to%20talk%20about%20an%20aerial%20video%20project.%20Here%20are%20a%20few%20details%3A%20%28type%20of%20property%20or%20venue%2C%20location%2C%20date%29" target="_blank" rel="noopener" aria-label="Every place has a story. Let’s tell yours. Message me on WhatsApp">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21" stroke-linecap="round"/></svg>
-        Every place has a story. Let’s tell yours.
-      </div>
+        <span class="ty"><span class="g">Every place has a story. Let’s tell yours.</span><span class="l" aria-hidden="true"></span></span>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
       <p>Real estate, hotels, restaurants, events, tell me about your project.</p>
-      <a class="btn" href="https://wa.me/33769920629?text=Hello%20Jaouad%2C%20I%20discovered%20EBMAKER%20and%20I%E2%80%99d%20like%20to%20talk%20about%20an%20aerial%20video%20project.%20Here%20are%20a%20few%20details%3A%20%28type%20of%20property%20or%20venue%2C%20location%2C%20date%29" target="_blank" rel="noopener">Get in touch <span class="arr">→</span></a>
       <a class="mail" id="mailText" href="mailto:contactebmaker@gmail.com">contactebmaker@gmail.com</a>
       <a class="btn small" href="mailto:contactebmaker@gmail.com?subject=Project%20inquiry%20%C2%B7%20EBMAKER" style="margin-top:14px">Send an email <span class="arr">→</span></a>
       <span class="reply">I reply within 48 hours</span>
@@ -293,7 +333,7 @@ noscript{display:block;padding:30px;text-align:center}
     <p>Chambéry, France</p>
     <h2>Contact</h2>
     <p>E-mail: <a href="mailto:contactebmaker@gmail.com">contactebmaker@gmail.com</a></p>
-    <p>WhatsApp: through the “Get in touch” button.</p>
+    <p>WhatsApp: through the contact buttons on the site.</p>
     <h2>Hosting</h2>
     <p>GitHub, Inc. (GitHub Pages), San Francisco, California, USA.</p>
     <h2>Intellectual property</h2>
@@ -501,6 +541,28 @@ noscript{display:block;padding:30px;text-align:center}
     if(Math.abs(dx)>50) step(dx<0?1:-1);
   },{passive:true});
 })();
+</script>
+<script>
+(function(){try{var r=document.getElementById("sec-realms");if(!r||!("IntersectionObserver" in window))return;
+document.documentElement.classList.add("js-rv");
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){r.classList.add("in")}else if(x.boundingClientRect.top>0){r.classList.remove("in")}})},{threshold:.18});io.observe(r)}catch(e){document.documentElement.classList.remove("js-rv")}})();
+</script>
+<script>
+(function(){try{var k=document.getElementById("sec-kinetic");if(!k)return;var rows=[].slice.call(k.querySelectorAll(".row"));
+var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;var tick=false;
+function upd(){tick=false;var r=k.getBoundingClientRect(),vh=window.innerHeight||800;if(r.bottom<-50||r.top>vh+50)return;
+var p=Math.max(0,Math.min(1,(vh-r.top)/(vh+r.height)));k.classList.toggle("in",p>.3);
+rows.forEach(function(el,i){var d=parseFloat(el.dataset.dir),w=el.scrollWidth,range=Math.min(w*.32,window.innerWidth*1.6);
+var x=(p-.5)*range*d*(rm?0:1);var base=0;el.style.transform="translate3d("+(base+x)+"px,0,0)"})}
+function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
+addEventListener("scroll",req,{passive:true});addEventListener("resize",req);upd();setTimeout(upd,300)}catch(e){}})();
+</script>
+<script>
+(function(){try{var a=document.querySelector("a.search");if(!a)return;var l=a.querySelector(".l"),g=a.querySelector(".g");
+var txt=g.textContent,rm=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+if(rm){l.textContent=txt;a.classList.add("done");return}
+var started=false;function type(){if(started)return;started=true;var i=0;(function step(){l.textContent=txt.slice(0,i);if(i<txt.length){i++;setTimeout(step,42+Math.random()*40)}else{a.classList.add("done");setTimeout(function(){started=false;l.textContent="";a.classList.remove("done");},9000)}})()}
+if("IntersectionObserver" in window){var vis=false;new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis)type()},{threshold:.6}).observe(a);setInterval(function(){if(vis&&!started)type()},1500)}else{l.textContent=txt;a.classList.add("done")}}catch(e){}})();
 </script>
 </body>
 </html>
