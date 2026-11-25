@@ -98,7 +98,7 @@ html{scroll-snap-type:y proximity}
 @media (prefers-reduced-motion:reduce){.kin .cap{opacity:1;transform:none;transition:none}}
 /* smooth entrance between cover and realms */
 .js-rv .realms h2,.js-rv .realms .card{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
-.js-rv .realms .card:nth-child(2){transition-delay:.12s}.js-rv .realms .card:nth-child(3){transition-delay:.24s}
+.js-rv .realms .card:nth-child(2){transition-delay:.12s}.js-rv .realms .card:nth-child(3){transition-delay:.24s}.js-rv .realms .card:nth-child(4){transition-delay:.36s}
 .js-rv .realms.in h2,.js-rv .realms.in .card{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.js-rv .realms h2,.js-rv .realms .card{opacity:1;transform:none;transition:none}}
 /* ---------- section pages ---------- */
@@ -194,9 +194,15 @@ html{scroll-snap-type:y proximity}
 .legal-link{display:inline-block;margin-top:46px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s}
 .legal-link:hover{color:#fff}
 
+/* four categories on the home grid */
+.grid.four{grid-template-columns:repeat(4,1fr)}
+.grid.four .card p{font-size:13.5px}
+.detail h1.wide{max-width:none}
+@media (max-width:1180px){.grid.four{grid-template-columns:repeat(2,1fr)}}
+
 /* ---------- responsive ---------- */
 @media (max-width:980px){
-  .grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}
+  .grid,.grid.four{grid-template-columns:1fr;max-width:560px;margin:0 auto}
   .card .media{aspect-ratio:16/10}
   .gallery{grid-template-columns:1fr}
   .gallery button{aspect-ratio:16/10}
@@ -278,7 +284,7 @@ noscript{display:block;padding:30px;text-align:center}
 <section class="realms snap" id="sec-realms" aria-label="Realms of Distinction">
   <div class="page">
     <h2>Realms of Distinction</h2>
-    <div class="grid">
+    <div class="grid four">
       <a class="card" href="#real-estate">
         <div class="media"><img src="img/hh_2_terrace_900.jpg" alt="Infinity pool and wooden pavilion on an alpine hillside" loading="lazy"></div>
         <div class="body">
@@ -300,6 +306,14 @@ noscript{display:block;padding:30px;text-align:center}
         <div class="body">
           <h3>Culinary Art &amp; Ambience</h3>
           <p>The setting, the table and the atmosphere of fine dining, captured as a cinematic experience from high-altitude views to the interior ambiance.</p>
+          <span class="btn small go">Explore <span class="arr">→</span></span>
+        </div>
+      </a>
+      <a class="card" href="#landscape">
+        <div class="media"><img src="img/ag_3_chalet_900.jpg" alt="Aerial view of an alpine chalet garden with corten steel walls and terraced lawns" loading="lazy"></div>
+        <div class="body">
+          <h3>Landscape &amp; Architecture</h3>
+          <p>The art of outdoor spaces, from private gardens to landscaped estates. Aerial storytelling that reveals the geometry of a design and its dialogue with the surrounding landscape.</p>
           <span class="btn small go">Explore <span class="arr">→</span></span>
         </div>
       </a>
@@ -341,6 +355,15 @@ noscript{display:block;padding:30px;text-align:center}
   <div class="page">
     <h2>Real Estate from Above</h2>
     <div class="grid" id="projectGrid"></div>
+    <div class="pagefoot"><a class="btn small" href="#realms"><span class="arr" style="transform:none">←</span> Back</a><span class="tag">@EBMAKER</span></div>
+  </div>
+</section>
+
+<!-- LANDSCAPE & ARCHITECTURE -->
+<section class="view" data-route="landscape" aria-label="Landscape and Architecture">
+  <div class="page">
+    <h2>Landscape &amp; Architecture</h2>
+    <div class="grid" id="landscapeGrid"></div>
     <div class="pagefoot"><a class="btn small" href="#realms"><span class="arr" style="transform:none">←</span> Back</a><span class="tag">@EBMAKER</span></div>
   </div>
 </section>
@@ -454,15 +477,30 @@ noscript{display:block;padding:30px;text-align:center}
               photos:[["img/vl_1_overview.jpg","Top-down view of the villa, pergola and pool"],
                       ["img/vl_2_angle.jpg","The pool and pool house from above"],
                       ["img/vl_3_detail.jpg","Vertical detail of the pool and sun loungers"]]}
+    },
+    {
+      slug:"alpine-garden", cat:"landscape",
+      card:{title:"The Alpine Garden",
+            text:"A chalet garden shaped by steel, stone and timber, captured from above in the colours of autumn.",
+            img:"img/ag_3_chalet_900.jpg", alt:"Aerial view of an alpine chalet garden with corten steel walls and terraced lawns"},
+      hero:{l1:"Terraced lawns", l2:"& corten walls",
+            video:"video/alpine_garden.mp4", poster:"img/ag_1_terraces.jpg"},
+      detail:{title:"Terraced lawns\n& corten walls",
+              text:"A chalet garden in the Alps, filmed by drone in autumn. Smooth, deliberate flight paths bring out the lines of the terraces, the corten steel walls and the timber deck. Shot and graded by EBMAKER.",
+              photos:[["img/ag_1_terraces.jpg","The chalet with its terraced lawn, corten walls and timber deck in autumn"],
+                      ["img/ag_2_garden.jpg","The garden seen from the pool deck, with the chalet and the forest behind"],
+                      ["img/ag_3_chalet.jpg","The chalet and its gravel path lined with corten steel"]]}
     }
   ];
 
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 
   /* ------------ build projects ------------ */
-  var grid = document.getElementById("projectGrid");
+  var grids = {"real-estate":document.getElementById("projectGrid"), "landscape":document.getElementById("landscapeGrid")};
   var pv = document.getElementById("projectViews");
   PROJECTS.forEach(function(p){
+    var cat = p.cat || "real-estate", grid = grids[cat];
+    var dTitle = esc(p.detail.title).replace(/\n/g,"<br>"), wide = p.detail.title.indexOf("\n")>-1 ? " wide" : "";
     grid.insertAdjacentHTML("beforeend",
       '<a class="card" href="#project-'+p.slug+'">'+
         '<div class="media"><img src="'+p.card.img+'" alt="'+esc(p.card.alt)+'" loading="lazy"></div>'+
@@ -474,21 +512,21 @@ noscript{display:block;padding:30px;text-align:center}
         '<video class="bgvideo" muted loop playsinline preload="metadata" poster="'+p.hero.poster+'" aria-hidden="true">'+
           '<source src="'+p.hero.video+'" type="video/mp4"></video>'+
         '<div class="shade"></div>'+
-        '<a class="btn small back" href="#real-estate"><span class="arr" style="transform:none">←</span> Back</a>'+
+        '<a class="btn small back" href="#'+cat+'"><span class="arr" style="transform:none">←</span> Back</a>'+
         '<div class="hero-inner"><h1>'+esc(p.hero.l1)+'<span>'+esc(p.hero.l2)+'</span></h1>'+
           '<div class="actions"><a class="btn" href="#project-'+p.slug+'-details">View project details <span class="arr">→</span></a>'+
-          '<a class="btn" href="#real-estate">Other projects</a></div></div>'+
+          '<a class="btn" href="#'+cat+'">Other projects</a></div></div>'+
       '</section>');
 
     var ph = p.detail.photos.map(function(ph,i){
       return '<button type="button" data-lb="'+p.slug+'" data-i="'+i+'" aria-label="Open photo '+(i+1)+'"><img src="'+ph[0].replace(".jpg","_900.jpg")+'" alt="'+esc(ph[1])+'" loading="lazy"></button>';
     }).join("");
     pv.insertAdjacentHTML("beforeend",
-      '<section class="view" data-route="project-'+p.slug+'-details" aria-label="'+esc(p.detail.title)+'">'+
-        '<div class="detail"><h1>'+esc(p.detail.title)+'</h1><p class="lead">'+esc(p.detail.text)+'</p>'+
+      '<section class="view" data-route="project-'+p.slug+'-details" aria-label="'+esc(p.detail.title.replace(/\n/g," "))+'">'+
+        '<div class="detail"><h1 class="'+wide.trim()+'">'+dTitle+'</h1><p class="lead">'+esc(p.detail.text)+'</p>'+
         '<div class="gallery">'+ph+'</div>'+
         '<div class="actions"><a class="btn small" href="#project-'+p.slug+'"><span class="arr" style="transform:none">←</span> Back</a>'+
-        '<a class="btn small" href="#real-estate">Other projects</a></div></div>'+
+        '<a class="btn small" href="#'+cat+'">Other projects</a></div></div>'+
       '</section>');
   });
 
